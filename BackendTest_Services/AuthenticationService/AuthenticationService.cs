@@ -1,8 +1,8 @@
 ﻿using BackendTest_Commneds.Commneds.AuthenticationCommends.Commend;
 using BackendTest_DTO.Auth;
 using BackendTest_DTO.Student;
+using BackendTest_Models.Models;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 
 namespace BackendTest_Services.AuthenticationService;
 
@@ -13,10 +13,17 @@ public class AuthenticationService : IAuthenticationService
     {
         _mediator = mediator;
     }
-    public async Task<IdentityResult> AddStudent(StudentFormDto formDto)
+    public async Task<StudentDto> AddStudent(StudentFormDto formDto)
     {
-        IdentityResult identityResult = await _mediator.Send(new AddStudentCommend(formDto));
-        return identityResult;
+        Student student = await _mediator.Send(new AddStudentCommend(formDto));
+        StudentDto studentDto = new StudentDto()
+        {
+            Id = student.Id,
+            FullName = student.FullName,
+            StudentReg = student.StudentReg,
+            RegistrationDate = student.RegistrationDate,
+        };
+        return studentDto;
     }
     public async Task<TokenModel> LogIn(string id)
     {

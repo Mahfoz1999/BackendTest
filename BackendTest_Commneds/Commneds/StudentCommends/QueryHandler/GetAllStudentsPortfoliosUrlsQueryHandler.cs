@@ -14,7 +14,7 @@ public class GetAllStudentsPortfoliosUrlsQueryHandler : IRequestHandler<GetAllSt
     }
     public async Task<List<string>> Handle(GetAllStudentsPortfoliosUrlsQuery request, CancellationToken cancellationToken)
     {
-        List<string> urls = await Context.Portfolios.Include(e => e.Student).Where(e => e.Student.Id == request.id).Select(e => e.Url).ToListAsync();
+        List<string> urls = await Context.Portfolios.Include(e => e.Student).Where(e => e.Student.Id == request.id).Select(e => e.Url).ToListAsync(cancellationToken);
         return urls;
     }
 }

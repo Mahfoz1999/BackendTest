@@ -130,10 +130,10 @@ public static class ServiceCollectionExtension
     #endregion
     public static void AddCommendTransients(this IServiceCollection services)
     {
-        services.AddTransient<IRequestHandler<AddStudentCommend, IdentityResult>, AddStudentCommendHandler>();
+        services.AddTransient<IRequestHandler<AddStudentCommend, Student>, AddStudentCommendHandler>();
         services.AddTransient<IRequestHandler<LogInCommend, TokenModel>, LogInCommendHanlder>();
         services.AddTransient<IRequestHandler<GetTokenQuery, JwtSecurityToken>, GetTokenQueryHandler>();
-        services.AddTransient<IRequestHandler<GetCurrentStudentQuery, Student>, GetCurrentStudentQueryHandler>();
+        services.AddTransient<IRequestHandler<GetCurrentStudentImagesQuery, List<string>>, GetCurrentStudentImagesQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllStudentsQuery, IEnumerable<Student>>, GetAllStudentsQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllStudentsPortfoliosUrlsQuery, List<string>>, GetAllStudentsPortfoliosUrlsQueryHandler>();
     }

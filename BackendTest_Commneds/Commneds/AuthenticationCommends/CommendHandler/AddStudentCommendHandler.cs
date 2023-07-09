@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BackendTest_Commneds.Commneds.AuthenticationCommends.CommendHandler;
 
-public class AddStudentCommendHandler : IRequestHandler<AddStudentCommend, IdentityResult>
+public class AddStudentCommendHandler : IRequestHandler<AddStudentCommend, Student>
 {
     private IHttpContextAccessor _httpContextAccessor { get; set; }
     private readonly UserManager<Student> _userManager;
@@ -25,7 +25,7 @@ public class AddStudentCommendHandler : IRequestHandler<AddStudentCommend, Ident
         _mediator = mediator;
         this.Context = Context;
     }
-    public async Task<IdentityResult> Handle(AddStudentCommend request, CancellationToken cancellationToken)
+    public async Task<Student> Handle(AddStudentCommend request, CancellationToken cancellationToken)
     {
         try
         {
@@ -40,7 +40,7 @@ public class AddStudentCommendHandler : IRequestHandler<AddStudentCommend, Ident
                     FullName = request.formDto.FullName,
                     MainPortfolio = MainPortfolio,
                     StudentReg = request.formDto.StudentReg,
-                    RegistrationDate = DateTimeOffset.Now.ToUnixTimeSeconds()
+                    RegistrationDate = request.formDto.RegistrationDate.ToUnixTimeSeconds()
                 };
                 if (request.formDto.Portfolios is not null)
                 {
@@ -54,7 +54,7 @@ public class AddStudentCommendHandler : IRequestHandler<AddStudentCommend, Ident
 
                 await Context.SaveChangesAsync(cancellationToken);
 
-                return result;
+                return student;
             }
             else throw new ValidException("User already exists");
         }

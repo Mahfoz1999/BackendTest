@@ -1,4 +1,5 @@
 ﻿using BackendTest_Services.StudentService;
+using BackEndTest_SharedKernal.enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,9 @@ public class StudentController : ControllerBase
     [HttpGet]
     [Authorize]
     [Route("[action]")]
-    public async Task<IActionResult> GetCurrentStudentDetails()
+    public async Task<IActionResult> GetCurrentStudentImages(ImageType imageType)
     {
-        var result = await service.GetCurrentStudent();
+        var result = await service.GetCurrentStudentImages(imageType);
         return Ok(result);
     }
 }

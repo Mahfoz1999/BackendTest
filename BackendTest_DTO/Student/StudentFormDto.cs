@@ -12,6 +12,8 @@ public record StudentFormDto
     [MaxLength(10)]
     public required string StudentReg { get; set; }
     [Required]
+    public DateTimeOffset RegistrationDate { get; set; }
+    [Required]
     public required IFormFile MainPortfolio { get; set; }
     public IFormFileCollection? Portfolios { get; set; }
 }

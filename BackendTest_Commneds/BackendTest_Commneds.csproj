@@ -18,6 +18,7 @@
     <ProjectReference Include="..\BackendTest_Database\BackendTest_Database.csproj" />
     <ProjectReference Include="..\BackendTest_DTO\BackendTest_DTO.csproj" />
     <ProjectReference Include="..\BackendTest_Models\BackendTest_Models.csproj" />
+    <ProjectReference Include="..\BackEndTest_SharedKernal\BackEndTest_SharedKernal.csproj" />
   </ItemGroup>
 
 </Project>

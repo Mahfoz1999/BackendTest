@@ -1,5 +1,6 @@
 ﻿using BackendTest_Commneds.Commneds.StudentCommends.Query;
 using BackendTest_DTO.Student;
+using BackEndTest_SharedKernal.enums;
 using MediatR;
 
 namespace BackendTest_Services.StudentService;
@@ -17,24 +18,16 @@ public class StudentService : IStudentService
         List<StudentDto> studentDtos = students.Select(e => new StudentDto()
         {
             Id = e.Id,
-            FullName = e.FullName
+            FullName = e.FullName,
+            StudentReg = e.StudentReg,
+            RegistrationDate = e.RegistrationDate
         }).ToList();
         return studentDtos;
     }
 
-    public async Task<StudentDetailsDto> GetCurrentStudent()
+    public async Task<List<string>> GetCurrentStudentImages(ImageType imageType)
     {
-        var student = await _mediator.Send(new GetCurrentStudentQuery());
-        List<string> urls = await _mediator.Send(new GetAllStudentsPortfoliosUrlsQuery(student.Id));
-        StudentDetailsDto studentDetails = new()
-        {
-            Id = student.Id,
-            FullName = student.FullName,
-            RegistrationDate = student.RegistrationDate,
-            StudentReg = student.StudentReg,
-            MainPortfolioUrl = student.MainPortfolio,
-            PortfoliosUrls = urls
-        };
-        return studentDetails;
+        var urls = await _mediator.Send(new GetCurrentStudentImagesQuery(imageType));
+        return urls;
     }
 }

@@ -18,7 +18,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> AddStudent([FromForm] StudentFormDto formDto)
     {
         var result = await service.AddStudent(formDto);
-        return result.Succeeded ? StatusCode(201) : new BadRequestObjectResult(result);
+        return Ok(result);
     }
     [HttpPost]
     [Route("[action]")]
